@@ -44,6 +44,8 @@ Implement complete authentication flow with login, registration, password reset,
 - [x] authService implementation
 - [x] Token persistence tests
 - [x] Auto-load user tests
+- [x] Update token key to 'redlane_auth_token'
+- [x] Auto-load user on app init
 
 ### Phase 2: ⏳ IN PROGRESS
 - [ ] API interceptor tests

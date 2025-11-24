@@ -13,7 +13,7 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   config => {
     // Add authorization token if available
-    const token = localStorage.getItem('auth_token')
+    const token = localStorage.getItem('redlane_auth_token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -37,7 +37,7 @@ apiClient.interceptors.response.use(
       switch (status) {
         case 401:
           // Unauthorized - clear token and redirect to login
-          localStorage.removeItem('auth_token')
+          localStorage.removeItem('redlane_auth_token')
           window.location.href = '/login'
           break
         case 403:
