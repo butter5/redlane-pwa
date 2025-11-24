@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
+import { useFeatureFlagStore } from '@/stores/featureFlagStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,10 +56,21 @@ const router = createRouter({
 // Navigation guards
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
+  const featureFlagStore = useFeatureFlagStore()
   const isAuthenticated = authStore.isAuthenticated
 
   // Set page title
   document.title = `${to.meta.title || 'Red Lane'} - ${import.meta.env.VITE_APP_NAME}`
+
+  // Check if route requires a specific feature flag
+  if (to.meta.requiresFeature) {
+    const featureFlag = to.meta.requiresFeature
+    if (!featureFlagStore.isActive(featureFlag)) {
+      // Redirect to 404 if feature is disabled
+      next({ name: 'not-found' })
+      return
+    }
+  }
 
   // Check if route requires authentication
   if (to.meta.requiresAuth && !isAuthenticated) {
