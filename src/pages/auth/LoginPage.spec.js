@@ -12,9 +12,9 @@ const createTestRouter = () => {
     history: createMemoryHistory(),
     routes: [
       { path: '/', name: 'home', component: { template: '<div>Home</div>' } },
-      { path: '/login', name: 'login', component: LoginPage },
-      { path: '/register', name: 'register', component: { template: '<div>Register</div>' } },
-      { path: '/forgot-password', name: 'forgot-password', component: { template: '<div>Forgot</div>' } },
+      { path: '/auth/login', name: 'login', component: LoginPage },
+      { path: '/auth/register', name: 'register', component: { template: '<div>Register</div>' } },
+      { path: '/auth/forgot-password', name: 'forgot-password', component: { template: '<div>Forgot</div>' } },
       { path: '/dashboard', name: 'dashboard', component: { template: '<div>Dashboard</div>' } },
     ],
   })
