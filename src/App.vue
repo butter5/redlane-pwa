@@ -7,16 +7,19 @@ import { useAuthStore } from '@/stores/authStore'
 const featureFlagStore = useFeatureFlagStore()
 const authStore = useAuthStore()
 
+// Feature flag refresh interval (5 minutes in milliseconds)
+const FLAG_REFRESH_INTERVAL = 5 * 60 * 1000
+
 let refreshInterval = null
 
 // Fetch feature flags on app mount
 onMounted(async () => {
   await featureFlagStore.fetchFlags()
   
-  // Set up periodic refresh every 5 minutes (300000ms)
+  // Set up periodic refresh every 5 minutes
   refreshInterval = setInterval(() => {
     featureFlagStore.refresh()
-  }, 300000)
+  }, FLAG_REFRESH_INTERVAL)
 })
 
 // Clean up interval on unmount

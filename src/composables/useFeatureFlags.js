@@ -12,8 +12,10 @@ export const useFeatureFlags = () => {
   // Convert store state to refs for reactivity
   const { flags, isLoaded } = storeToRefs(featureFlagStore)
 
-  // Expose actions
-  const { isActive, refresh, getFlag } = featureFlagStore
+  // Expose actions with proper binding
+  const isActive = flagKey => featureFlagStore.isActive(flagKey)
+  const refresh = () => featureFlagStore.refresh()
+  const getFlag = key => featureFlagStore.getFlag(key)
 
   return {
     // State

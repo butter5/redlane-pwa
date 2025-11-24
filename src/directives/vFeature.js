@@ -10,8 +10,13 @@ export const vFeature = {
     const featureFlagStore = useFeatureFlagStore()
     const flagKey = binding.value
     
+    // Store the original display value
+    if (!el._vFeatureOriginalDisplay) {
+      el._vFeatureOriginalDisplay = el.style.display || ''
+    }
+    
     if (!featureFlagStore.isActive(flagKey)) {
-      // Remove the element if the feature is not active
+      // Hide the element if the feature is not active
       el.style.display = 'none'
     }
   },
@@ -22,7 +27,12 @@ export const vFeature = {
     if (!featureFlagStore.isActive(flagKey)) {
       el.style.display = 'none'
     } else {
-      el.style.display = ''
+      // Restore the original display value
+      el.style.display = el._vFeatureOriginalDisplay || ''
     }
+  },
+  unmounted(el) {
+    // Clean up the stored original display value
+    delete el._vFeatureOriginalDisplay
   },
 }
