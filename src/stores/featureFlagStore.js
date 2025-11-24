@@ -20,16 +20,33 @@ export const useFeatureFlagStore = defineStore('featureFlag', () => {
     }
   }
 
+  /**
+   * Check if a feature flag is enabled
+   * Returns true only if the flag exists and is explicitly set to true
+   * @param {string} flagKey - The flag key to check
+   * @returns {boolean} - True if flag is enabled, false otherwise (fail-safe)
+   */
   const isActive = flagKey => {
     // Default to OFF if flag not found (fail-safe)
     return flags.value[flagKey] === true
   }
 
+  /**
+   * Refresh feature flags from the API
+   * Alias for fetchFlags for semantic clarity
+   */
   const refresh = async () => {
     await fetchFlags()
   }
 
   // Getters
+  /**
+   * Get the raw value of a feature flag
+   * Returns the actual value or false if not found
+   * Use this if you need the actual value; use isActive() for boolean checks
+   * @param {string} key - The flag key to retrieve
+   * @returns {*} - The flag value or false if not found
+   */
   const getFlag = key => {
     return flags.value[key] ?? false
   }

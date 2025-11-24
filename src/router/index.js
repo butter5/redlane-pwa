@@ -65,6 +65,20 @@ router.beforeEach((to, from, next) => {
   // Check if route requires a specific feature flag
   if (to.meta.requiresFeature) {
     const featureFlag = to.meta.requiresFeature
+    
+    // If flags haven't been loaded yet, wait for them to load before checking
+    if (!featureFlagStore.isLoaded) {
+      featureFlagStore.fetchFlags().then(() => {
+        if (!featureFlagStore.isActive(featureFlag)) {
+          next({ name: 'not-found' })
+        } else {
+          // Continue with auth checks
+          checkAuthAndProceed(to, isAuthenticated, next)
+        }
+      })
+      return
+    }
+    
     if (!featureFlagStore.isActive(featureFlag)) {
       // Redirect to 404 if feature is disabled
       next({ name: 'not-found' })
@@ -72,6 +86,11 @@ router.beforeEach((to, from, next) => {
     }
   }
 
+  checkAuthAndProceed(to, isAuthenticated, next)
+})
+
+// Helper function to check authentication requirements
+function checkAuthAndProceed(to, isAuthenticated, next) {
   // Check if route requires authentication
   if (to.meta.requiresAuth && !isAuthenticated) {
     // Redirect to login if not authenticated
@@ -89,6 +108,6 @@ router.beforeEach((to, from, next) => {
   else {
     next()
   }
-})
+}
 
 export default router
