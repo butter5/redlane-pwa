@@ -22,8 +22,6 @@ export const useAuthStore = defineStore('auth', () => {
       token.value = response.token
       user.value = response.user
       localStorage.setItem(TOKEN_KEY, response.token)
-    } catch (error) {
-      throw error
     } finally {
       isLoading.value = false
     }
@@ -36,8 +34,6 @@ export const useAuthStore = defineStore('auth', () => {
       token.value = response.token
       user.value = response.user
       localStorage.setItem(TOKEN_KEY, response.token)
-    } catch (error) {
-      throw error
     } finally {
       isLoading.value = false
     }
@@ -92,8 +88,6 @@ export const useAuthStore = defineStore('auth', () => {
     isLoading.value = true
     try {
       return await authService.forgotPassword(email)
-    } catch (error) {
-      throw error
     } finally {
       isLoading.value = false
     }
@@ -103,8 +97,6 @@ export const useAuthStore = defineStore('auth', () => {
     isLoading.value = true
     try {
       return await authService.resetPassword(data)
-    } catch (error) {
-      throw error
     } finally {
       isLoading.value = false
     }
