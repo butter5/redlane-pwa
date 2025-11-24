@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
+import { useFeatureFlagStore } from '@/stores/featureFlagStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,11 +56,41 @@ const router = createRouter({
 // Navigation guards
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
+  const featureFlagStore = useFeatureFlagStore()
   const isAuthenticated = authStore.isAuthenticated
 
   // Set page title
   document.title = `${to.meta.title || 'Red Lane'} - ${import.meta.env.VITE_APP_NAME}`
 
+  // Check if route requires a specific feature flag
+  if (to.meta.requiresFeature) {
+    const featureFlag = to.meta.requiresFeature
+    
+    // If flags haven't been loaded yet, wait for them to load before checking
+    if (!featureFlagStore.isLoaded) {
+      featureFlagStore.fetchFlags().then(() => {
+        if (!featureFlagStore.isActive(featureFlag)) {
+          next({ name: 'not-found' })
+        } else {
+          // Continue with auth checks
+          checkAuthAndProceed(to, isAuthenticated, next)
+        }
+      })
+      return
+    }
+    
+    if (!featureFlagStore.isActive(featureFlag)) {
+      // Redirect to 404 if feature is disabled
+      next({ name: 'not-found' })
+      return
+    }
+  }
+
+  checkAuthAndProceed(to, isAuthenticated, next)
+})
+
+// Helper function to check authentication requirements
+function checkAuthAndProceed(to, isAuthenticated, next) {
   // Check if route requires authentication
   if (to.meta.requiresAuth && !isAuthenticated) {
     // Redirect to login if not authenticated
@@ -77,6 +108,6 @@ router.beforeEach((to, from, next) => {
   else {
     next()
   }
-})
+}
 
 export default router
