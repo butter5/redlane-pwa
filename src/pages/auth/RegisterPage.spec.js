@@ -11,8 +11,8 @@ const createTestRouter = () => {
   return createRouter({
     history: createMemoryHistory(),
     routes: [
-      { path: '/register', name: 'register', component: RegisterPage },
-      { path: '/login', name: 'login', component: { template: '<div>Login</div>' } },
+      { path: '/auth/register', name: 'register', component: RegisterPage },
+      { path: '/auth/login', name: 'login', component: { template: '<div>Login</div>' } },
       { path: '/dashboard', name: 'dashboard', component: { template: '<div>Dashboard</div>' } },
     ],
   })

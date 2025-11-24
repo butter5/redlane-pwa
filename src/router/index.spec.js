@@ -15,13 +15,13 @@ const createTestRouter = () => {
         meta: { title: 'Home' },
       },
       {
-        path: '/login',
+        path: '/auth/login',
         name: 'login',
         component: { template: '<div>Login</div>' },
         meta: { title: 'Login', requiresGuest: true },
       },
       {
-        path: '/register',
+        path: '/auth/register',
         name: 'register',
         component: { template: '<div>Register</div>' },
         meta: { title: 'Register', requiresGuest: true },
@@ -98,7 +98,7 @@ describe('Router Guards', () => {
     it('should allow access to guest route when not authenticated', async () => {
       expect(authStore.isAuthenticated).toBe(false)
 
-      await router.push('/login')
+      await router.push('/auth/login')
 
       expect(router.currentRoute.value.name).toBe('login')
     })
@@ -108,7 +108,7 @@ describe('Router Guards', () => {
       authStore.user = { id: 1, email: 'test@example.com' }
       authStore.token = 'valid-token'
 
-      await router.push('/login')
+      await router.push('/auth/login')
 
       expect(router.currentRoute.value.name).toBe('dashboard')
     })
@@ -117,7 +117,7 @@ describe('Router Guards', () => {
       authStore.user = { id: 1, email: 'test@example.com' }
       authStore.token = 'valid-token'
 
-      await router.push('/register')
+      await router.push('/auth/register')
 
       expect(router.currentRoute.value.name).toBe('dashboard')
     })
@@ -162,7 +162,7 @@ describe('Router Guards', () => {
       authStore.user = { id: 1, email: 'test@example.com' }
       authStore.token = 'valid-token'
 
-      await router.push('/login')
+      await router.push('/auth/login')
 
       expect(router.currentRoute.value.name).not.toBe('login')
       expect(router.currentRoute.value.name).toBe('dashboard')

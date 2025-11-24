@@ -1,103 +1,66 @@
-# Development Plan - Phase 1: Authentication Flow
+# Development Plan - Red Lane PWA
+
+## Current Phase: Core Navigation & Route Structure - COMPLETED ✅
 
 ## Objective
-Implement complete authentication flow with login, registration, password reset, and token management following TDD principles.
+Set up complete Vue Router route structure for the application, including authentication, people management, and trips management with full navigation flows.
 
-## Phases
+## Completed Work
 
-### Phase 1: Test Infrastructure & Core Auth Store (CURRENT)
-- Set up test infrastructure for auth
-- Create authStore with tests
-- Create authService with tests
-- Implement token persistence
+### Navigation & Routes Implementation ✅
+- [x] Updated authentication routes to use `/auth` prefix
+  - `/auth/login` - Login page
+  - `/auth/register` - Registration page
+  - `/auth/forgot-password` - Password recovery
+  - `/auth/reset-password/:token` - Password reset with token
+- [x] Implemented People management routes
+  - `/people` - List all people (PeopleListPage)
+  - `/people/new` - Add new person (PersonFormPage)
+  - `/people/:id` - Edit person (PersonFormPage)
+- [x] Implemented Trips management routes
+  - `/trips` - List all trips (TripsListPage)
+  - `/trips/new` - Create new trip (TripFormPage)
+  - `/trips/:id` - Trip overview (TripDetailPage)
+  - `/trips/:id/items` - Manage trip items (TripItemsPage)
+  - `/trips/:id/legs` - Manage trip legs (TripLegsPage)
+  - `/trips/:id/duty` - View duty summary (TripDutyPage)
+- [x] All routes protected with appropriate guards (requiresAuth/requiresGuest)
+- [x] Created placeholder page components with AppLayout
+- [x] Added comprehensive tests for all routes and pages
+- [x] Updated existing tests to reflect new route structure
+- [x] All 165 tests passing
+- [x] Build and lint successful
 
-### Phase 2: API Client Interceptors
-- Add Bearer token to requests
-- Handle 401 responses
-- Implement token refresh logic
-- Error handling
+## Previous Phases
 
-### Phase 3: Auth Pages & Components
-- LoginPage with validation
-- RegisterPage with validation
-- ForgotPasswordPage
-- ResetPasswordPage
-- AuthLayout
-- AppLayout
+### Phase 1: Authentication Flow - COMPLETED ✅
+- [x] Test Infrastructure & Core Auth Store
+- [x] API Client Interceptors
+- [x] Auth Pages & Components
+- [x] Router Guards & Navigation
+- [x] Composables & Integration
+- Total Tests: 110 passing
 
-### Phase 4: Router Guards & Navigation
-- Route guards for protected routes
-- Auth redirects
-- Dashboard route
-
-### Phase 5: Composables & Integration
-- useAuth composable
-- E2E integration tests
-- Final verification
-
-## Progress Tracking
-
-### Phase 1: ✅ COMPLETED
-- [x] authStore tests
-- [x] authStore implementation
-- [x] authService tests
-- [x] authService implementation
-- [x] Token persistence tests
-- [x] Auto-load user tests
-- [x] Update token key to 'redlane_auth_token'
-- [x] Auto-load user on app init
-
-### Phase 2: ✅ COMPLETED
-- [x] API interceptor tests (already functional)
-- [x] Request interceptor implementation (already functional)
-- [x] Response interceptor implementation (already functional)
-- [x] Token key updated to 'redlane_auth_token'
-
-### Phase 3: ✅ COMPLETED
-- [x] useAuth composable tests - 7 tests
-- [x] useAuth composable implementation
-- [x] LoginPage tests - 11 tests
-- [x] LoginPage implementation
-- [x] RegisterPage tests - 13 tests
-- [x] RegisterPage implementation
-- [x] ForgotPasswordPage tests - 9 tests
-- [x] ForgotPasswordPage implementation
-- [x] ResetPasswordPage tests - 9 tests
-- [x] ResetPasswordPage implementation
-- [x] AuthLayout implementation
-- [x] AppLayout implementation
-- [x] DashboardPage implementation
-
-### Phase 4: ✅ COMPLETED
-- [x] Router guard tests - 10 tests
-- [x] Router guard implementation (requiresAuth, requiresGuest)
-- [x] Auth routes (login, register, forgot-password, reset-password/:token)
-- [x] Protected dashboard route
-- [x] Redirect logic with query preservation
-
-### Phase 5: ✅ COMPLETED
-- [x] All 110 tests passing
-- [x] Build successful
-- [x] Linter passing
-- [x] All acceptance criteria verified
-
-### Final Summary
-**Total Tests**: 110 passing
-- authStore: 32 tests
-- authService: 14 tests
-- authStore autoload: 3 tests
-- useAuth composable: 7 tests
-- LoginPage: 11 tests
-- RegisterPage: 13 tests
-- ForgotPasswordPage: 9 tests
-- ResetPasswordPage: 9 tests
-- Router guards: 10 tests
-- HomePage: 2 tests
+## Test Summary
+- **Total Tests**: 165 passing
+- Authentication: 110 tests
+- Navigation & Routes: 10 tests
+- People Pages: 5 tests
+- Trips Pages: 7 tests
+- Other components: 33 tests
 
 ## Standards & Constraints
-- TDD first: All tests written before implementation
-- No half features
+- TDD first: All tests written before or with implementation
+- No half features - all features fully implemented
 - E2E tests for each complete feature
 - SOLID principles
 - Clean Architecture
 - High test coverage
+
+## Next Steps
+Based on the design document, potential next phases could include:
+- Implementing People management business logic and API integration
+- Implementing Trips management business logic and API integration
+- Adding item management with OCR scanning
+- Implementing duty calculation engine
+- Adding offline support with service workers

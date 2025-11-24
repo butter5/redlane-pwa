@@ -351,3 +351,406 @@ App.vue
 └── AppLayout (for authenticated pages)
     └── RouterView (Dashboard, etc.)
 ```
+
+---
+
+# People Management Pages
+
+## PeopleListPage
+
+### Overview
+**Purpose**: Display list of people user can declare for
+
+**Scope**: List view, navigation to add/edit person
+
+**Dependencies**: 
+- AppLayout
+- vue-router
+
+### Props
+N/A (Page component)
+
+### State (Internal)
+None (placeholder - will add people list from store)
+
+### Events
+| Event | Payload | Description |
+|-------|---------|-------------|
+| addPerson | - | Navigate to new person form |
+
+### Accessibility (A11y)
+- Semantic HTML
+- Proper heading hierarchy
+- Button labels
+- Keyboard navigation
+
+### Styling & Responsiveness
+- Tailwind utilities
+- Mobile-first
+- Card-based layout
+
+### Tests
+- [x] Unit: Page renders correctly
+- [x] Unit: Add person button exists
+
+### Performance Considerations
+- Will paginate when data added
+
+### Usage Examples
+```vue
+<PeopleListPage />
+```
+
+---
+
+## PersonFormPage
+
+### Overview
+**Purpose**: Add or edit person profile
+
+**Scope**: Form for person details, validation
+
+**Dependencies**: 
+- AppLayout
+- vue-router (for id param)
+
+### Props
+N/A (ID from route params)
+
+### State (Internal)
+- personId: computed from route.params.id
+- isEditMode: computed (!!personId)
+
+### Events
+| Event | Payload | Description |
+|-------|---------|-------------|
+| save | PersonData | Save person |
+| back | - | Navigate to people list |
+
+### Accessibility (A11y)
+- Semantic HTML
+- Form labels
+- Error announcements
+- Focus management
+
+### Styling & Responsiveness
+- Tailwind utilities
+- Mobile-first
+- Form layout
+
+### Tests
+- [x] Unit: Add mode renders correctly
+- [x] Unit: Edit mode renders correctly
+- [x] Unit: Back button exists
+
+### Performance Considerations
+- Form validation on submit
+
+### Usage Examples
+```vue
+<PersonFormPage />
+```
+
+---
+
+# Trips Management Pages
+
+## TripsListPage
+
+### Overview
+**Purpose**: Display list of user's trips
+
+**Scope**: List view, navigation to trip management
+
+**Dependencies**: 
+- AppLayout
+- vue-router
+
+### Props
+N/A
+
+### State (Internal)
+None (placeholder - will add trips list from store)
+
+### Events
+| Event | Payload | Description |
+|-------|---------|-------------|
+| newTrip | - | Navigate to new trip form |
+
+### Accessibility (A11y)
+- Semantic HTML
+- Proper heading hierarchy
+- Button labels
+- Keyboard navigation
+
+### Styling & Responsiveness
+- Tailwind utilities
+- Mobile-first
+- Card-based layout
+
+### Tests
+- [x] Unit: Page renders correctly
+- [x] Unit: New trip button exists
+
+### Performance Considerations
+- Will paginate when data added
+
+### Usage Examples
+```vue
+<TripsListPage />
+```
+
+---
+
+## TripFormPage
+
+### Overview
+**Purpose**: Create new trip
+
+**Scope**: Trip creation form
+
+**Dependencies**: 
+- AppLayout
+- vue-router
+
+### Props
+N/A
+
+### State (Internal)
+None (placeholder)
+
+### Events
+| Event | Payload | Description |
+|-------|---------|-------------|
+| save | TripData | Create trip |
+| back | - | Navigate to trips list |
+
+### Accessibility (A11y)
+- Semantic HTML
+- Form labels
+- Focus management
+
+### Styling & Responsiveness
+- Tailwind utilities
+- Mobile-first
+
+### Tests
+- Unit tests pending (placeholder component)
+
+### Performance Considerations
+- Form validation
+
+### Usage Examples
+```vue
+<TripFormPage />
+```
+
+---
+
+## TripDetailPage
+
+### Overview
+**Purpose**: Trip overview hub
+
+**Scope**: Display trip info, navigate to sub-sections
+
+**Dependencies**: 
+- AppLayout
+- vue-router (for trip id)
+
+### Props
+N/A (ID from route params)
+
+### State (Internal)
+- tripId: computed from route.params.id
+
+### Events
+| Event | Payload | Description |
+|-------|---------|-------------|
+| viewItems | - | Navigate to items |
+| viewLegs | - | Navigate to legs |
+| viewDuty | - | Navigate to duty |
+| back | - | Navigate to trips list |
+
+### Accessibility (A11y)
+- Semantic HTML
+- Button labels
+- Keyboard navigation
+
+### Styling & Responsiveness
+- Tailwind utilities
+- Mobile-first
+- Grid layout for actions
+
+### Tests
+- [x] Unit: Page renders with trip ID
+- [x] Unit: View items button exists
+- [x] Unit: View legs button exists
+- [x] Unit: Duty summary button exists
+- [x] Unit: Back button exists
+
+### Performance Considerations
+- Simple navigation hub
+
+### Usage Examples
+```vue
+<TripDetailPage />
+```
+
+---
+
+## TripItemsPage
+
+### Overview
+**Purpose**: Manage items for a trip
+
+**Scope**: List items, add/edit items
+
+**Dependencies**: 
+- AppLayout
+- vue-router (for trip id)
+
+### Props
+N/A (ID from route params)
+
+### State (Internal)
+- tripId: computed from route.params.id
+
+### Events
+| Event | Payload | Description |
+|-------|---------|-------------|
+| addItem | - | Navigate to item form |
+| back | - | Navigate to trip detail |
+
+### Accessibility (A11y)
+- Semantic HTML
+- Proper headings
+- Keyboard navigation
+
+### Styling & Responsiveness
+- Tailwind utilities
+- Mobile-first
+
+### Tests
+- Unit tests pending (placeholder component)
+
+### Performance Considerations
+- Will paginate items list
+
+### Usage Examples
+```vue
+<TripItemsPage />
+```
+
+---
+
+## TripLegsPage
+
+### Overview
+**Purpose**: Manage trip legs (flights/travel segments)
+
+**Scope**: List legs, add/edit legs
+
+**Dependencies**: 
+- AppLayout
+- vue-router (for trip id)
+
+### Props
+N/A (ID from route params)
+
+### State (Internal)
+- tripId: computed from route.params.id
+
+### Events
+| Event | Payload | Description |
+|-------|---------|-------------|
+| addLeg | - | Navigate to leg form |
+| back | - | Navigate to trip detail |
+
+### Accessibility (A11y)
+- Semantic HTML
+- Proper headings
+- Keyboard navigation
+
+### Styling & Responsiveness
+- Tailwind utilities
+- Mobile-first
+
+### Tests
+- Unit tests pending (placeholder component)
+
+### Performance Considerations
+- Simple list view
+
+### Usage Examples
+```vue
+<TripLegsPage />
+```
+
+---
+
+## TripDutyPage
+
+### Overview
+**Purpose**: Display pooled duty calculation
+
+**Scope**: Duty summary, allowances, taxable amount
+
+**Dependencies**: 
+- AppLayout
+- vue-router (for trip id)
+
+### Props
+N/A (ID from route params)
+
+### State (Internal)
+- tripId: computed from route.params.id
+
+### Events
+| Event | Payload | Description |
+|-------|---------|-------------|
+| back | - | Navigate to trip detail |
+
+### Accessibility (A11y)
+- Semantic HTML
+- Proper headings
+- Table semantics for calculations
+- Keyboard navigation
+
+### Styling & Responsiveness
+- Tailwind utilities
+- Mobile-first
+- Emphasis on duty amount
+
+### Tests
+- Unit tests pending (placeholder component)
+
+### Performance Considerations
+- Calculation logic will be in composable/store
+
+### Usage Examples
+```vue
+<TripDutyPage />
+```
+
+---
+
+## Updated Component Hierarchy
+```
+App.vue
+├── AuthLayout (for auth pages)
+│   ├── LoginPage
+│   ├── RegisterPage
+│   ├── ForgotPasswordPage
+│   └── ResetPasswordPage
+└── AppLayout (for authenticated pages)
+    ├── DashboardPage
+    ├── PeopleListPage
+    ├── PersonFormPage
+    ├── TripsListPage
+    ├── TripFormPage
+    ├── TripDetailPage
+    ├── TripItemsPage
+    ├── TripLegsPage
+    └── TripDutyPage
+```

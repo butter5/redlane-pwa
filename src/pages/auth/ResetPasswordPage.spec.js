@@ -11,8 +11,8 @@ const createTestRouter = () => {
   return createRouter({
     history: createMemoryHistory(),
     routes: [
-      { path: '/reset-password/:token', name: 'reset-password', component: ResetPasswordPage },
-      { path: '/login', name: 'login', component: { template: '<div>Login</div>' } },
+      { path: '/auth/reset-password/:token', name: 'reset-password', component: ResetPasswordPage },
+      { path: '/auth/login', name: 'login', component: { template: '<div>Login</div>' } },
     ],
   })
 }
@@ -114,7 +114,7 @@ describe('ResetPasswordPage', () => {
   it('submits form with valid password and token', async () => {
     authService.resetPassword.mockResolvedValue({ message: 'Password reset successful' })
     
-    await router.push('/reset-password/test-token-123')
+    await router.push('/auth/reset-password/test-token-123')
 
     const wrapper = mount(ResetPasswordPage, {
       global: {
